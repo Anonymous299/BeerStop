@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
+    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -43,6 +47,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(libs.coreKTX)
     implementation(libs.compose)
@@ -50,10 +58,15 @@ dependencies {
     implementation(libs.composePreview)
     implementation(libs.lifecycleKTX)
     implementation(libs.composeActivity)
+    implementation(libs.composeNavigation)
+    implementation(libs.navigationGraph)
+    implementation(libs.hilt)
+    kapt(libs.hiltCompiler)
+    annotationProcessor(libs.navigationGraphAP)
     testImplementation(libs.testJunit)
     androidTestImplementation(libs.testAndroidJunit)
     androidTestImplementation(libs.testAndroidEspresso)
     androidTestImplementation(libs.testAndroidCompose)
-    debugImplementation(libs.composeTooling)
+    debugImplementation(libs.debugComposeTooling)
     debugImplementation(libs.debugComposeManifest)
 }

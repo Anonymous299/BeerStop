@@ -3,16 +3,19 @@
 #plugins
 androidGradle = "7.2.2"
 kotlin = "1.5.31"
+hilt = "2.38.1"
 
 #libraries
 compose = "1.1.0-beta01"
 composeCompiler = "1.1.0-beta01"
 composeActivity = "1.3.1"
+composeNavigation = "2.5.1"
 coreKTX = "1.7.0"
 lifecycleKTX = "2.3.1"
 junit = "4.13.2"
 androidxJUnit = "1.1.3"
 espresso = "3.4.0"
+navigationGraph = "1.1.0"
 
 [plugins]
 
@@ -29,7 +32,10 @@ composeMaterial = {module = "androidx.compose.material:material", version.ref = 
 composePreview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose"}
 lifecycleKTX = {module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleKTX"}
 composeActivity = {module = "androidx.activity:activity-compose", version.ref = "composeActivity"}
-composeTooling = {module = "androidx.compose.ui:ui-tooling", version.ref = "compose"}
+composeNavigation = {module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation"}
+navigationGraph = {module = "net.lachlanmckee:hilt-compose-navigation-factory", version.ref = "navigationGraph"}
+hilt = {module = "com.google.dagger:hilt-android", version.ref = "hilt"}
+hiltCompiler = {module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt"}
 
 # test libraries
 testJunit = {module = "junit:junit", version.ref = "junit"}
@@ -41,7 +47,10 @@ testAndroidCompose = {module = "androidx.compose.ui:ui-test-junit4", version.ref
 
 # debug libraries
 debugComposeManifest = {module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose"}
+debugComposeTooling = {module = "androidx.compose.ui:ui-tooling", version.ref = "compose"}
 
+# annotation processor libraries
+navigationGraphAP = {module = "net.lachlanmckee:hilt-compose-navigation-factory-compiler", version.ref = "navigationGraph"}
 
-
-
+# classpaths
+hiltClasspath = {module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt"}
