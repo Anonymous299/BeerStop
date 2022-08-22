@@ -7,3 +7,5 @@ The goal of creating a Navigation system was to support Compose while keeping th
 within their seperate modules which couldn't be done with the default Android provided NavHost. Nested graphs seems like a solution but still kind of keeps things highly coupled
 with the base NavHost. Also adding a route requires changing at least two modules with that approach. So I opted for a solution given [here](https://medium.com/bumble-tech/scalable-jetpack-compose-navigation-9c0659f7c912).
 As far as I can see it is a scalable solution that leverages Hilt to reduce coupling and isolates implementation details to individual modules.
+For sending navigation commands, I used a navigation manager which executes the actual navigation command in the top-level Activity. This ensures a
+single source of truth for navigation. A command can be sent through a buffered channel which is part of the manager. The command gets sent immediately without delay. The reason I used a Channel was to handle multiple calls to the navigate command in the form of a stream.
