@@ -1,3 +1,4 @@
+include(":app")
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -5,6 +6,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,5 +14,3 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "BeerStop"
-include ':app'
