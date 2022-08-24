@@ -1,4 +1,6 @@
 include(":app")
+include(":core")
+rootProject.name = "BeerStop"
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -6,7 +8,6 @@ pluginManagement {
         mavenCentral()
     }
 }
-enableFeaturePreview("VERSION_CATALOGS")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,3 +15,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+enableFeaturePreview("VERSION_CATALOGS")
+
+include(":efficient-feature")
