@@ -1,11 +1,12 @@
-package com.trype.beerstop
+package com.trype.beerstop.navigation
 
+import com.trype.core.extensions.MainImmediateScope
+import com.trype.core.navigation.NavigationCommand
+import com.trype.core.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NavigationManagerImpl @Inject constructor(

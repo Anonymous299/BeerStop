@@ -1,8 +1,9 @@
-package com.trype.beerstop
+package com.trype.efficient_feature
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.trype.core.navigation.NavigationDestinations
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,7 +23,6 @@ class EfficientAlcoholNavigationFactory @Inject constructor(): ComposeNavigation
     }
 }
 
-// Defined within the 'feature 1' module
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface ComposeNavigationFactoryModule {

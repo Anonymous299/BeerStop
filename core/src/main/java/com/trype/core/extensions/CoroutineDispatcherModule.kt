@@ -1,4 +1,4 @@
-package com.trype.beerstop
+package com.trype.core.extensions
 
 import dagger.Module
 import dagger.Provides

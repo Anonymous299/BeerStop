@@ -1,4 +1,4 @@
-package com.trype.beerstop
+package com.trype.core.navigation
 
 import kotlinx.coroutines.flow.Flow
 
