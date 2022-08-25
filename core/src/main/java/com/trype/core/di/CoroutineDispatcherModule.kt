@@ -1,4 +1,4 @@
-package com.trype.core.extensions
+package com.trype.core.di
 
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.trype.core.extensions
+package com.trype.core.di
 
 import android.util.Log
 import dagger.Module

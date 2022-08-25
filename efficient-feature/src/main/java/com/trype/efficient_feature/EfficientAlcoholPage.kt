@@ -5,5 +5,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun EfficientAlcoholPage(){
-    Text("Hello world!")
+
 }

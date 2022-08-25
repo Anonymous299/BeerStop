@@ -48,6 +48,7 @@ dependencies {
     implementation(project(mapOf("path" to ":core")))
     kapt(libs.hiltCompiler)
     annotationProcessor(libs.navigationGraphAP)
+    implementation(libs.retrofit)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.5.0")
     implementation("com.google.android.material:material:1.6.1")
