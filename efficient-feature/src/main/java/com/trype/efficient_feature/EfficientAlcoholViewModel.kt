@@ -1,31 +1,28 @@
 package com.trype.efficient_feature
 
-import androidx.lifecycle.SavedStateHandle
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trype.core.extensions.resultOf
 import com.trype.efficient_feature.domain.EfficientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val SAVED_UI_STATE_KEY = "savedUiStateKey"
 private const val HTTP_PREFIX = "http"
 private const val HTTPS_PREFIX = "https"
 
 @HiltViewModel
 class EfficientAlcoholViewModel @Inject constructor(
     private val efficientRepository: EfficientRepository,
-    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val eventChannel = Channel<EfficientAlcoholEvents>(Channel.BUFFERED)
     val event = eventChannel.receiveAsFlow()
 
-    val uiState = savedStateHandle.getStateFlow(SAVED_UI_STATE_KEY, EfficientAlcoholUIState())
+    val uiState = MutableStateFlow(EfficientAlcoholUIState())
     private val intentFlow = MutableSharedFlow<EfficientAlcoholIntents>()
 
     init {
@@ -37,7 +34,7 @@ class EfficientAlcoholViewModel @Inject constructor(
                     //TODO handle this
                 }
                 .collect {
-                    savedStateHandle[SAVED_UI_STATE_KEY] = it
+                    uiState.emit(it)
                 }
         }
         acceptIntent(EfficientAlcoholIntents.GetAlcohols)
