@@ -1,8 +1,8 @@
 plugins {
-    kotlin("kapt")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -38,7 +38,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
     packagingOptions {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
@@ -51,6 +51,7 @@ kapt {
 
 dependencies {
     implementation(project(mapOf("path" to ":core")))
+    implementation(project(mapOf("path" to ":efficient-feature")))
     implementation(libs.coreKTX)
     implementation(libs.compose)
     implementation(libs.composeMaterial)
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.composeNavigation)
     implementation(libs.navigationGraph)
     implementation(libs.hilt)
+    implementation(libs.retrofit)
     kapt(libs.hiltCompiler)
     annotationProcessor(libs.navigationGraphAP)
     testImplementation(libs.testJunit)
