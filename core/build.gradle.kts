@@ -1,10 +1,8 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
-    kotlin("kapt")
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -27,6 +25,12 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -40,12 +44,15 @@ dependencies {
 
     implementation(libs.composeNavigation)
     implementation(libs.navigationGraph)
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.0")
-    implementation("com.google.android.material:material:1.6.1")
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.converterMoshi)
+    implementation(libs.moshi)
+    implementation(libs.coreKTX)
     implementation(libs.hilt)
     kapt(libs.hiltCompiler)
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    kapt(libs.moshiAP)
+    testImplementation(libs.testJunit)
+    androidTestImplementation(libs.testAndroidJunit)
+    androidTestImplementation(libs.testAndroidEspresso)
 }

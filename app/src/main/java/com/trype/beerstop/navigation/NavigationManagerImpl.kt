@@ -1,6 +1,6 @@
 package com.trype.beerstop.navigation
 
-import com.trype.core.extensions.MainImmediateScope
+import com.trype.core.di.MainImmediateScope
 import com.trype.core.navigation.NavigationCommand
 import com.trype.core.navigation.NavigationManager
 import kotlinx.coroutines.CoroutineScope
