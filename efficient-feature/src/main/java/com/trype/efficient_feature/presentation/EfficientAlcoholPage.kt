@@ -8,17 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trype.core.extensions.collectAsStateWithLifecycle
+import com.trype.core.extensions.collectWithLifecycle
 import com.trype.efficient_feature.*
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun EfficientAlcoholPage(
     viewModel: EfficientAlcoholViewModel = hiltViewModel()
 ) {
+    HandleEvents(events = viewModel.event)
+
     val scaffoldState = rememberScaffoldState()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -36,8 +41,10 @@ fun EfficientAlcoholPage(
             if (uiState.alcoholList.isNotEmpty()) {
                 AlcoholAvailableContent(
                     scaffoldState = scaffoldState,
-                    uiState = uiState,
-                )
+                    uiState = uiState
+                ) { uri ->
+                    viewModel.acceptIntent(EfficientAlcoholIntents.AlcoholClicked(uri))
+                }
             } else {
                 AlcoholNotAvailableContent(
                     uiState = uiState
@@ -49,9 +56,24 @@ fun EfficientAlcoholPage(
 }
 
 @Composable
+private fun HandleEvents(events: Flow<EfficientAlcoholEvents>) {
+    val uriHandler = LocalUriHandler.current
+
+    //Collects events as long as activity is at least started
+    events.collectWithLifecycle {
+        when (it) {
+            is EfficientAlcoholEvents.OpenAlcoholInWebBrowser -> {
+                uriHandler.openUri(it.uri)
+            }
+        }
+    }
+}
+
+@Composable
 private fun AlcoholAvailableContent(
     scaffoldState: ScaffoldState,
     uiState: EfficientAlcoholUIState,
+    onAlcoholClicked: (String) -> Unit
 ) {
     if (uiState.isError) {
         val errorMessage = stringResource(R.string.alcohol_error_message)
@@ -64,7 +86,8 @@ private fun AlcoholAvailableContent(
     }
 
     EfficientAlcoholList(
-        alcoholList = uiState.alcoholList
+        alcoholList = uiState.alcoholList,
+        onAlcoholClicked
     )
 }
 

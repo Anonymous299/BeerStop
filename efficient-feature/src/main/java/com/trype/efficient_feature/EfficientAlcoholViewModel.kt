@@ -7,17 +7,23 @@ import com.trype.core.extensions.resultOf
 import com.trype.efficient_feature.domain.EfficientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val SAVED_UI_STATE_KEY = "savedUiStateKey"
+private const val HTTP_PREFIX = "http"
+private const val HTTPS_PREFIX = "https"
 
 @HiltViewModel
 class EfficientAlcoholViewModel @Inject constructor(
     private val efficientRepository: EfficientRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    private val eventChannel = Channel<EfficientAlcoholEvents>(Channel.BUFFERED)
+    val event = eventChannel.receiveAsFlow()
 
     val uiState = savedStateHandle.getStateFlow(SAVED_UI_STATE_KEY, EfficientAlcoholUIState())
     private val intentFlow = MutableSharedFlow<EfficientAlcoholIntents>()
@@ -72,9 +78,19 @@ class EfficientAlcoholViewModel @Inject constructor(
 
     private fun mapIntents(intent: EfficientAlcoholIntents): Flow<EfficientAlcoholUIState.PartialState> {
         return when (intent) {
-            EfficientAlcoholIntents.GetAlcohols -> getAlcohols()
-            EfficientAlcoholIntents.RefreshAlcohols -> refreshAlcohols()
+            is EfficientAlcoholIntents.GetAlcohols -> getAlcohols()
+            is EfficientAlcoholIntents.RefreshAlcohols -> refreshAlcohols()
+            is EfficientAlcoholIntents.AlcoholClicked -> alcoholClicked(intent.uri)
         }
+    }
+
+    private fun alcoholClicked(uri: String): Flow<EfficientAlcoholUIState.PartialState>{
+        if (uri.startsWith(HTTP_PREFIX) || uri.startsWith(HTTPS_PREFIX)) {
+            viewModelScope.launch {
+                eventChannel.send(EfficientAlcoholEvents.OpenAlcoholInWebBrowser(uri))
+            }
+        }
+        return emptyFlow()
     }
 
     private fun getAlcohols(): Flow<EfficientAlcoholUIState.PartialState> = flow {
