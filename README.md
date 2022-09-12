@@ -9,3 +9,10 @@ with the base NavHost. Also adding a route requires changing at least two module
 As far as I can see it is a scalable solution that leverages Hilt to reduce coupling and isolates implementation details to individual modules.
 For sending navigation commands, I used a navigation manager which executes the actual navigation command in the top-level Activity. This ensures a
 single source of truth for navigation. A command can be sent through a buffered channel which is part of the manager. The command gets sent immediately without delay. The reason I used a Channel was to handle multiple calls to the navigate command in the form of a stream.
+
+#### Steps to add new screen
+* Create a new Android module with the name of the feature you want to build
+* Create screen elements in composable functions, preferably within a package called presentation
+* Create a navigation package. Add a class annotated with HiltComposeNavigationFactory inheriting from ComposeNavigationFactory. Override the create method and call your top compose function.  
+  
+These steps should add your screen to the navigation graph automatically.
