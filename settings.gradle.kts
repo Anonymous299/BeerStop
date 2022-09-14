@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 enableFeaturePreview("VERSION_CATALOGS")
 
 include(":efficient-feature")
+include(":home")

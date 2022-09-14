@@ -7,6 +7,8 @@ hilt = "2.42"
 
 #libraries
 compose = "1.1.1"
+composeConstraint = "1.0.1"
+constraint = "2.1.4"
 composeActivity = "1.3.1"
 composeNavigation = "2.5.1"
 coreKTX = "1.7.0"
@@ -34,6 +36,8 @@ coreKTX = {module = "androidx.core:core-ktx", version.ref = "coreKTX"}
 compose = {module = "androidx.compose.ui:ui", version.ref = "compose"}
 composeMaterial = {module = "androidx.compose.material:material", version.ref = "compose"}
 composePreview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose"}
+composeConstraint = {module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraint"}
+constraint = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint"}
 lifecycleKTX = {module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleKTX"}
 composeActivity = {module = "androidx.activity:activity-compose", version.ref = "composeActivity"}
 composeNavigation = {module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation"}

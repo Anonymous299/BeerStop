@@ -1,7 +1,8 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
     kotlin("kapt")
 }
 
@@ -9,62 +10,63 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        applicationId = "com.trype.beerstop"
         minSdk = 21
         targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
+
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
-    packagingOptions {
-        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
-    implementation(project(mapOf("path" to ":core")))
-    implementation(project(mapOf("path" to ":efficient-feature")))
-    implementation(libs.coreKTX)
     implementation(libs.compose)
+    implementation(libs.composeConstraint)
+    implementation(libs.constraint)
     implementation(libs.composeMaterial)
     implementation(libs.composePreview)
     implementation(libs.lifecycleKTX)
     implementation(libs.composeActivity)
     implementation(libs.composeNavigation)
-    implementation(libs.navigationGraph)
     implementation(libs.hilt)
-    implementation(libs.retrofit)
-    implementation(project(mapOf("path" to ":home")))
+    implementation(libs.navigationGraph)
+    implementation(libs.room)
+    implementation(libs.gson)
+    implementation(libs.converterMoshi)
+    implementation(libs.moshi)
+    implementation(libs.roomKtx)
+    implementation(libs.composeAccompanistSwipeRefresh)
+    implementation(project(mapOf("path" to ":core")))
+    kapt(libs.roomAP)
     kapt(libs.hiltCompiler)
-    annotationProcessor(libs.navigationGraphAP)
+    kapt(libs.navigationGraphAP)
+    kapt(libs.moshiAP)
+    implementation(libs.retrofit)
+    implementation(libs.hiltNavigation)
+    implementation(libs.coreKTX)
     testImplementation(libs.testJunit)
     androidTestImplementation(libs.testAndroidJunit)
     androidTestImplementation(libs.testAndroidEspresso)
