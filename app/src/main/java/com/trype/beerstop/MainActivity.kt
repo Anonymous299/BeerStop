@@ -30,18 +30,10 @@ class MainActivity : ComponentActivity() {
             BeerStopTheme {
                 val context = LocalContext.current
 
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                Text(text = stringResource(id = R.string.app_name))
-                            }
-                        )
-                    }
-                ) { padding ->
+                Scaffold{ padding ->
                     val navController = rememberNavController()
                    NavHost(navController = navController, startDestination =
-                   com.trype.core.navigation.NavigationDestinations.EfficientAlcohol.route,
+                   com.trype.core.navigation.NavigationDestinations.HomeDestination.route,
                    modifier = Modifier.padding(padding)) {
                        hiltNavGraphNavigationFactories(context).addNavigation(this, navController)
                    }

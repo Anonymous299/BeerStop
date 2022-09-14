@@ -5,6 +5,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import com.trype.core.theme.*
+import com.trype.core.theme.Colors.Purple200
+import com.trype.core.theme.Colors.Purple500
+import com.trype.core.theme.Colors.Purple700
+import com.trype.core.theme.Colors.Teal200
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,

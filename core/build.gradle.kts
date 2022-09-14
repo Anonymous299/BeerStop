@@ -41,7 +41,8 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.compose)
+    implementation(libs.composeMaterial)
     implementation(libs.composeNavigation)
     implementation(libs.navigationGraph)
     implementation(libs.retrofit)
