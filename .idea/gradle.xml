@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/efficient-feature" />
             <option value="$PROJECT_DIR$/home" />
+            <option value="$PROJECT_DIR$/search" />
           </set>
         </option>
       </GradleProjectSettings>
