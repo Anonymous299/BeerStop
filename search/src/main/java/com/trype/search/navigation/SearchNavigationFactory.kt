@@ -12,8 +12,8 @@ import javax.inject.Inject
 @HiltComposeNavigationFactory
 class SearchNavigationFactory @Inject constructor(): ComposeNavigationFactory {
     override fun create(builder: NavGraphBuilder, navController: NavHostController) {
-        builder.composable(NavigationDestinations.SearchDestination.route){
-            SearchScreen()
+        builder.composable(NavigationDestinations.SearchDestination.route){ backStackEntry ->
+            SearchScreen(category = backStackEntry.arguments?.getString("category"))
         }
     }
 }

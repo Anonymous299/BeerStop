@@ -1,9 +1,11 @@
 package com.trype.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trype.core.data.Alcohol
 import com.trype.core.extensions.resultOf
+import com.trype.core.navigation.NavigationManager
 import com.trype.home.domain.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
+    val navigationManager: NavigationManager
 ): ViewModel() {
     private val eventChannel = Channel<HomeEvents>(Channel.BUFFERED)
     val event = eventChannel.receiveAsFlow()
@@ -84,8 +87,10 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun openCategorySearch(type: String): Flow<HomeUIState.PartialState>{
-        //TODO implement
-        return emptyFlow()
+        viewModelScope.launch {
+            eventChannel.send(HomeEvents.OpenCategorySearch(type))
+        }
+            return emptyFlow()
     }
 
     private fun getMostEfficientAlcohol(): Flow<HomeUIState.PartialState> = flow {

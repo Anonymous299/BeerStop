@@ -4,11 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.trype.beerstop.ui.theme.BeerStopTheme
@@ -33,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold{ padding ->
                     val navController = rememberNavController()
                    NavHost(navController = navController, startDestination =
-                   com.trype.core.navigation.NavigationDestinations.SearchDestination.route,
+                   com.trype.core.navigation.NavigationDestinations.HomeDestination.route,
                    modifier = Modifier.padding(padding)) {
                        hiltNavGraphNavigationFactories(context).addNavigation(this, navController)
                    }
@@ -42,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         navigationManager
                             .navigationEvent
                             .collectWithLifecycle(key = navController){
-                                navController.navigate(it.destination, it.configuration)
+                                navController.navigate(it.destination)
                             }
 
                 }
