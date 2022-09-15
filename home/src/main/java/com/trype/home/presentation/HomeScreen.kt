@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,14 +26,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trype.core.extensions.collectAsStateWithLifecycle
+import com.trype.core.extensions.collectWithLifecycle
 import com.trype.core.theme.Raleway
+import com.trype.home.HomeViewModel
 import com.trype.home.R
-
+//TODO handle loading appropriately
 @Composable
-fun HomeScreen() {
+fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
+    val uiState by homeViewModel.uiState.collectAsStateWithLifecycle()
+
     Column(modifier = Modifier.padding(top = 49.dp, start = 34.5.dp)) {
         Image(painter = painterResource(id = R.drawable.ic_three_dots_ellipsis),
             contentDescription = "menu")
@@ -40,7 +46,10 @@ fun HomeScreen() {
             modifier = Modifier.padding(top = 21.5.dp, bottom = 20.0.dp))
         Text(text = "Start your search below", style = MaterialTheme.typography.h2)
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            MostEfficientCard()
+            if(uiState.mostEfficientAlcohol != null)
+                MostEfficientCard(uiState.mostEfficientAlcohol!!.title, uiState.mostEfficientAlcohol!!.thumbnail_url)
+            else
+                MostEfficientCard("Jim Bean Black Kentucky")
         }
         OutlinedTextFieldNoPadding(value = "Search",
             onValueChange = {},
@@ -56,7 +65,9 @@ fun HomeScreen() {
         Text(text = "Popular search categories", style = MaterialTheme.typography.h2,
         modifier = Modifier.padding(top = 19.dp))
 //        Box(modifier = Modifier.padding().align(Alignment.CenterHorizontally)){
-            Row(modifier = Modifier.padding(top = 15.dp, end = 34.5.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            Row(modifier = Modifier
+                .padding(top = 15.dp, end = 34.5.dp)
+                .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 CategoryCard(title = "Wine", icon = R.drawable.ic_wine_glass, contentDescription = "wine")
                 CategoryCard(title = "Beer & Cider", icon = R.drawable.ic_beer_mug, contentDescription = "beer")
                 CategoryCard(title = "Spirits", icon = R.drawable.ic_spirit_glass, contentDescription = "spirits")

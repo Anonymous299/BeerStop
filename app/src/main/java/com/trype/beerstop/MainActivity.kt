@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold{ padding ->
                     val navController = rememberNavController()
                    NavHost(navController = navController, startDestination =
-                   com.trype.core.navigation.NavigationDestinations.HomeDestination.route,
+                   com.trype.core.navigation.NavigationDestinations.SearchDestination.route,
                    modifier = Modifier.padding(padding)) {
                        hiltNavGraphNavigationFactories(context).addNavigation(this, navController)
                    }

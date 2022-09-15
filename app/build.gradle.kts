@@ -51,7 +51,6 @@ kapt {
 
 dependencies {
     implementation(project(mapOf("path" to ":core")))
-    implementation(project(mapOf("path" to ":efficient-feature")))
     implementation(libs.coreKTX)
     implementation(libs.compose)
     implementation(libs.composeMaterial)
@@ -63,6 +62,7 @@ dependencies {
     implementation(libs.hilt)
     implementation(libs.retrofit)
     implementation(project(mapOf("path" to ":home")))
+    implementation(project(mapOf("path" to ":search")))
     kapt(libs.hiltCompiler)
     annotationProcessor(libs.navigationGraphAP)
     testImplementation(libs.testJunit)

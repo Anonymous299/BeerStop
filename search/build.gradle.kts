@@ -26,7 +26,6 @@ android {
             )
         }
     }
-
     buildFeatures {
         compose = true
     }
@@ -43,6 +42,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.compose)
     implementation(libs.composeConstraint)
     implementation(libs.constraint)
