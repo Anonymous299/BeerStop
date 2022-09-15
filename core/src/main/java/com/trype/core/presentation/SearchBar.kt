@@ -1,4 +1,4 @@
-package com.trype.home.presentation
+package com.trype.core.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -8,7 +8,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,6 +25,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun OutlinedTextFieldNoPadding(value: String,
                                onValueChange: (String) -> Unit,
+                               paddingValues: PaddingValues,
                                modifier: Modifier = Modifier,
                                enabled: Boolean = true,
                                readOnly: Boolean = false,
@@ -47,7 +51,7 @@ fun OutlinedTextFieldNoPadding(value: String,
         value = value,
         modifier = modifier
             .background(colors.backgroundColor(enabled).value, shape)
-            .padding(end = 34.5.dp, top = 33.dp),
+            .padding(paddingValues),
         onValueChange = {},
         enabled = false,
         readOnly = true,

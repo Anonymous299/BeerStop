@@ -1,5 +1,6 @@
 package com.trype.core.theme
 
+import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -31,7 +32,22 @@ val Typography = Typography(
         fontFamily = Raleway,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
-    )
+    ),
+    h3 = TextStyle(
+        fontFamily = Raleway,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 14.sp
+    ),
+    h4 = TextStyle(
+        fontFamily = Playfair,
+        fontWeight = FontWeight(700),
+        fontSize = 12.sp
+    ),
+    body2 = TextStyle(
+        fontFamily = Raleway,
+        fontWeight = FontWeight.W900,
+        fontSize = 10.sp
+    ),
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
