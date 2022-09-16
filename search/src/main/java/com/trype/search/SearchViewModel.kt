@@ -1,7 +1,11 @@
 package com.trype.search
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import com.trype.core.data.Alcohol
 import com.trype.core.extensions.resultOf
 import com.trype.search.domain.SearchRepository
@@ -11,16 +15,18 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    //TODO save and get category from savedstatehandle
+    private val SEARCH_STATE_KEY = "searchState"
     private val eventChannel = Channel<SearchEvents>(Channel.BUFFERED)
     val event = eventChannel.receiveAsFlow()
 
-    val uiState = MutableStateFlow(SearchUIState())
+    val searchResults: MutableStateFlow<List<Alcohol>> = MutableStateFlow(emptyList())
+
+    val uiState: StateFlow<SearchUIState> = savedStateHandle.getStateFlow(SEARCH_STATE_KEY, SearchUIState())
     private val intentFlow = MutableSharedFlow<SearchIntents>()
 
     init {
@@ -32,10 +38,16 @@ class SearchViewModel @Inject constructor(
                     //TODO handle this
                 }
                 .collect {
-                    uiState.emit(it)
+                    savedStateHandle[SEARCH_STATE_KEY] = it
                 }
         }
-
+        Log.d("SahilTest", "savedStateHandle contains: ${savedStateHandle.contains("category")}")
+//        viewModelScope.launch {
+//            category.collectLatest {
+//                Log.d("SahilTest", "category:$it")
+//                acceptIntent(SearchIntents.GetSpirits(category=it))
+//            }
+//        }
     }
 
     fun acceptIntent(searchIntent: SearchIntents) {
@@ -56,9 +68,11 @@ class SearchViewModel @Inject constructor(
                 )
             }
             is SearchUIState.PartialState.Fetched -> {
+                viewModelScope.launch {
+                    searchResults.emit(partialState.searchResults)
+                }
                 previousState.copy(
                     isLoading = false,
-                    searchResults = partialState.searchResults,
                     isError = false
                 )
             }
@@ -68,6 +82,16 @@ class SearchViewModel @Inject constructor(
                     isError = true
                 )
             }
+            is SearchUIState.PartialState.CategoryChanged -> {
+                acceptIntent(SearchIntents.GetSpirits(partialState.category))
+                previousState.copy(
+                    category = partialState.category
+                )
+            }
+            is SearchUIState.PartialState.FilterChanged ->
+                previousState.copy(
+                    filter = partialState.open
+                )
         }
     }
 
@@ -75,7 +99,18 @@ class SearchViewModel @Inject constructor(
         return when (intent) {
             is SearchIntents.GetSpirits -> getSpirits(intent.category)
             is SearchIntents.AlcoholClicked -> openDescriptionPage(intent.alcohol)
+            is SearchIntents.SaveCategory -> saveCategory(intent.category)
+            is SearchIntents.ToggleFilter -> toggleFilter(intent.open)
         }
+    }
+
+    private fun toggleFilter(open: Boolean): Flow<SearchUIState.PartialState> = flow{
+        emit(SearchUIState.PartialState.FilterChanged(open))
+    }
+
+    private fun saveCategory(category: Set<String>): Flow<SearchUIState.PartialState> = flow {
+        Log.d("SahilTest", "category changed1")
+        emit(SearchUIState.PartialState.CategoryChanged(category))
     }
 
     private fun openDescriptionPage(alcohol: Alcohol): Flow<SearchUIState.PartialState> {
@@ -83,7 +118,7 @@ class SearchViewModel @Inject constructor(
         return emptyFlow()
     }
 
-    private fun getSpirits(category: String): Flow<SearchUIState.PartialState> = flow {
+    private fun getSpirits(category: Set<String>): Flow<SearchUIState.PartialState> = flow {
         searchRepository.getSpirits(category).map {
             resultOf { it }
         }

@@ -15,8 +15,8 @@ interface AlcoholDAO {
     @Query("SELECT * FROM alcohol WHERE price_index=(SELECT MIN(price_index) FROM alcohol)")
     fun getMostEfficientAlcohol(): Flow<Alcohol?>
 
-    @Query("SELECT * FROM alcohol WHERE category=:category")
-    fun getSpirits(category: String): Flow<List<Alcohol>>
+    @Query("SELECT * FROM alcohol WHERE category IN(:categorySet)")
+    fun getSpirits(categorySet: Set<String>): Flow<List<Alcohol>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAlcohols(rockets: List<Alcohol>)

@@ -86,7 +86,7 @@ private fun HandleEvents(events: Flow<HomeEvents>, navigationManager: Navigation
     events.collectWithLifecycle {
         when (it) {
             is HomeEvents.OpenCategorySearch -> {
-                navigationManager.navigate(SearchNavigation.searchCommand(it.type))
+                navigationManager.navigate(it.navigationCommand)
             }
             is HomeEvents.OpenMostEfficientDetails -> {
                 //TODO

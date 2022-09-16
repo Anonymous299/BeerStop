@@ -12,7 +12,7 @@ class SearchRepository @Inject constructor(
     private val alcoholDAO: AlcoholDAO
 ) {
     //TODO add logic for networking
-    fun getSpirits(category: String): Flow<List<Alcohol>> {
+    fun getSpirits(category: Set<String>): Flow<List<Alcohol>> {
         return alcoholDAO
             .getSpirits(category)
     }
