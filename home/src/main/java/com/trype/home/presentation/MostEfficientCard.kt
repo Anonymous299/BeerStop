@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,11 +18,13 @@ import coil.compose.AsyncImage
 import com.trype.core.theme.Colors
 import com.trype.home.R
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MostEfficientCard(value: String, imageUrl: String? = null) {
+fun MostEfficientCard(value: String, imageUrl: String? = null, onClick: (() -> Unit)) {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(end = 34.5.dp, top = 15.dp), backgroundColor = Colors.LightGrey) {
+        .padding(end = 34.5.dp, top = 15.dp), backgroundColor = Colors.LightGrey,
+    onClick = onClick) {
         Row(modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(modifier = Modifier.padding(start = 33.dp, top = 37.dp).weight(0.5f)) {
                 Text(

@@ -4,6 +4,6 @@ import com.trype.core.data.Alcohol
 import com.trype.core.navigation.NavigationCommand
 
 sealed interface HomeEvents {
-    data class OpenMostEfficientDetails(val alcohol: Alcohol): HomeEvents
-    data class OpenCategorySearch(val type: String, val navigationCommand: NavigationCommand): HomeEvents //TODO change type to enum
+    data class OpenMostEfficientDetails(val navigationCommand: NavigationCommand): HomeEvents
+    data class OpenCategorySearch(val navigationCommand: NavigationCommand): HomeEvents //TODO change type to enum
 }

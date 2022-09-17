@@ -23,6 +23,7 @@ hiltNavigation = "1.0.0"
 room = "2.4.3"
 moshi = "1.13.0"
 composeAccompanist = "0.25.0"
+ratingBar = "1.2.3"
 
 [plugins]
 
@@ -38,10 +39,12 @@ compose = {module = "androidx.compose.ui:ui", version.ref = "compose"}
 composeMaterial = {module = "androidx.compose.material:material", version.ref = "compose"}
 composePreview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose"}
 composeConstraint = {module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "composeConstraint"}
+ratingBar = {module = "com.github.a914-gowtham:compose-ratingbar", version.ref="ratingBar"}
 coilCompose = {module = "io.coil-kt:coil-compose", version.ref = "coilCompose"}
 constraint = {module = "androidx.constraintlayout:constraintlayout", version.ref = "constraint"}
 lifecycleKTX = {module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleKTX"}
 composeActivity = {module = "androidx.activity:activity-compose", version.ref = "composeActivity"}
+viewModelCompose = {module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeNavigation"}
 composeNavigation = {module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation"}
 navigationGraph = {module = "net.lachlanmckee:hilt-compose-navigation-factory", version.ref = "navigationGraph"}
 hilt = {module = "com.google.dagger:hilt-android", version.ref = "hilt"}

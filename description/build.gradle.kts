@@ -39,6 +39,8 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xjvm-default=enable"
+//        freeCompilerArgs.["-Xjvm-default=all",]
     }
 }
 
@@ -52,6 +54,7 @@ dependencies {
     implementation(libs.lifecycleKTX)
     implementation(libs.composeActivity)
     implementation(libs.composeNavigation)
+    implementation(libs.viewModelCompose)
     implementation(libs.hilt)
     implementation(libs.navigationGraph)
     implementation(libs.room)
@@ -61,6 +64,7 @@ dependencies {
     implementation(libs.roomKtx)
     implementation(libs.coilCompose)
     implementation(libs.composeAccompanistSwipeRefresh)
+    implementation(libs.ratingBar)
     implementation(project(mapOf("path" to ":core")))
     kapt(libs.roomAP)
     kapt(libs.hiltCompiler)

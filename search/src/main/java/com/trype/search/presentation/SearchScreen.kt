@@ -18,14 +18,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.trype.core.extensions.collectAsStateWithLifecycle
+import com.trype.core.extensions.collectWithLifecycle
+import com.trype.core.navigation.NavigationManager
 import com.trype.core.presentation.OutlinedTextFieldNoPadding
 import com.trype.core.theme.Colors
 import com.trype.search.R
+import com.trype.search.SearchEvents
 import com.trype.search.SearchIntents
 import com.trype.search.SearchViewModel
+import kotlinx.coroutines.flow.Flow
+
 @Composable
 fun SearchScreen(searchViewModel: SearchViewModel = hiltViewModel(), category: String?) {
     val uiState by searchViewModel.uiState.collectAsStateWithLifecycle()
+    HandleEvents(events = searchViewModel.event, navigationManager = searchViewModel.navigationManager)
     //TODO change logic when more queries are added
     if (category == null){
         if(uiState.category.isNotEmpty())
@@ -41,10 +47,12 @@ fun SearchScreen(searchViewModel: SearchViewModel = hiltViewModel(), category: S
     Column(modifier = Modifier.padding(top = 35.5.dp, start = 29.5.dp, end = 22.5.dp)) {
         Image(painter = painterResource(id = R.drawable.ic_filter),
             contentDescription = "filter",
-        modifier = Modifier.scale(0.6f).clickable {
-            Log.d("SahilTest", "filter state: ${uiState.filter}")
-            searchViewModel.acceptIntent(SearchIntents.ToggleFilter(!uiState.filter))
-        })
+        modifier = Modifier
+            .scale(0.6f)
+            .clickable {
+                Log.d("SahilTest", "filter state: ${uiState.filter}")
+                searchViewModel.acceptIntent(SearchIntents.ToggleFilter(!uiState.filter))
+            })
         if(uiState.filter){
             OutlinedButton(
     onClick = { },
@@ -74,8 +82,22 @@ fun SearchScreen(searchViewModel: SearchViewModel = hiltViewModel(), category: S
             .padding(top = 15.dp)
             .fillMaxHeight()) {
             items(items = searchResults, itemContent = { alcohol ->
-                SearchResultCard(alcohol.title, alcohol.price, alcohol.image_url)
+                SearchResultCard(alcohol.title, alcohol.price, alcohol.image_url){
+                    searchViewModel.acceptIntent(SearchIntents.AlcoholClicked(alcohol))
+                }
             })
+        }
+    }
+}
+
+@Composable
+private fun HandleEvents(events: Flow<SearchEvents>, navigationManager: NavigationManager) {
+
+    events.collectWithLifecycle {
+        when (it) {
+            is SearchEvents.OpenAlcoholDetails -> {
+                navigationManager.navigate(it.navigationCommand)
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.trype.core.data.Alcohol
 import com.trype.core.extensions.resultOf
+import com.trype.core.navigation.DescriptionNavigation
+import com.trype.core.navigation.NavigationManager
 import com.trype.search.domain.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -18,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
+    private val descriptionNavigation: DescriptionNavigation,
+    val navigationManager: NavigationManager,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val SEARCH_STATE_KEY = "searchState"
@@ -114,7 +118,9 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun openDescriptionPage(alcohol: Alcohol): Flow<SearchUIState.PartialState> {
-        //TODO implement
+        viewModelScope.launch {
+            eventChannel.send(SearchEvents.OpenAlcoholDetails(descriptionNavigation.descriptionCommand(alcohol.id)))
+        }
         return emptyFlow()
     }
 

@@ -1,5 +1,6 @@
 package com.trype.home.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -37,9 +38,12 @@ fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel()) {
         Text(text = "Start your search below", style = MaterialTheme.typography.h2)
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             if(uiState.mostEfficientAlcohol != null)
-                MostEfficientCard(uiState.mostEfficientAlcohol!!.title, uiState.mostEfficientAlcohol!!.thumbnail_url)
+                MostEfficientCard(uiState.mostEfficientAlcohol!!.title, uiState.mostEfficientAlcohol!!.thumbnail_url
+                ) {
+                    homeViewModel.acceptIntent(HomeIntents.MostEfficientAlcoholClicked(uiState.mostEfficientAlcohol!!))
+                }
             else
-                MostEfficientCard("Jim Bean Black Kentucky")
+                MostEfficientCard("Jim Bean Black Kentucky", onClick = {}) //TODO handle
         }
         OutlinedTextFieldNoPadding(value = "Search",
             onValueChange = {},
@@ -89,7 +93,7 @@ private fun HandleEvents(events: Flow<HomeEvents>, navigationManager: Navigation
                 navigationManager.navigate(it.navigationCommand)
             }
             is HomeEvents.OpenMostEfficientDetails -> {
-                //TODO
+                navigationManager.navigate(it.navigationCommand)
             }
         }
     }

@@ -20,4 +20,6 @@ class NavigationManagerImpl @Inject constructor(
             navigationCommandChannel.send(command)
         }
     }
+
+
 }
