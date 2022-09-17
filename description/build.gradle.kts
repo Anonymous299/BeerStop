@@ -1,6 +1,9 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
+    kotlin("kapt")
 }
 
 android {
@@ -23,6 +26,13 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -34,10 +44,35 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(libs.compose)
+    implementation(libs.composeConstraint)
+    implementation(libs.constraint)
+    implementation(libs.composeMaterial)
+    implementation(libs.composePreview)
+    implementation(libs.lifecycleKTX)
+    implementation(libs.composeActivity)
+    implementation(libs.composeNavigation)
+    implementation(libs.hilt)
+    implementation(libs.navigationGraph)
+    implementation(libs.room)
+    implementation(libs.gson)
+    implementation(libs.converterMoshi)
+    implementation(libs.moshi)
+    implementation(libs.roomKtx)
+    implementation(libs.coilCompose)
+    implementation(libs.composeAccompanistSwipeRefresh)
+    implementation(project(mapOf("path" to ":core")))
+    kapt(libs.roomAP)
+    kapt(libs.hiltCompiler)
+    kapt(libs.navigationGraphAP)
+    kapt(libs.moshiAP)
+    implementation(libs.retrofit)
+    implementation(libs.hiltNavigation)
+    implementation(libs.coreKTX)
+    testImplementation(libs.testJunit)
+    androidTestImplementation(libs.testAndroidJunit)
+    androidTestImplementation(libs.testAndroidEspresso)
+    androidTestImplementation(libs.testAndroidCompose)
+    debugImplementation(libs.debugComposeTooling)
+    debugImplementation(libs.debugComposeManifest)
 }

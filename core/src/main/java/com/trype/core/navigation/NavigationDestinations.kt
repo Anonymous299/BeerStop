@@ -5,4 +5,5 @@ sealed class NavigationDestinations(val base_route: String, val argument_route: 
 ) {
     object SearchDestination: NavigationDestinations("search", "category")
     object HomeDestination: NavigationDestinations("home")
+    object DescriptionDestination: NavigationDestinations("description", "alcohol")
 }

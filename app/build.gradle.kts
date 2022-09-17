@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(project(mapOf("path" to ":home")))
     implementation(project(mapOf("path" to ":search")))
+    implementation(project(mapOf("path" to ":description")))
     kapt(libs.hiltCompiler)
     annotationProcessor(libs.navigationGraphAP)
     testImplementation(libs.testJunit)

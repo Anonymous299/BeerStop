@@ -3,6 +3,8 @@ package com.trype.core.navigation
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.trype.core.data.Alcohol
+
 //TODO organize navigation command implementation
 //object SearchNavigation {
 //
@@ -17,4 +19,8 @@ import androidx.navigation.navArgument
 
 interface SearchNavigation{
     fun searchCommand(category: String): NavigationCommand
+}
+
+interface DescriptionNavigation{
+    fun descriptionCommand(alcohol: Alcohol): NavigationCommand
 }
