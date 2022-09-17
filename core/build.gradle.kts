@@ -16,6 +16,14 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

@@ -3,10 +3,7 @@ package com.trype.search.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,11 +17,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.trype.core.theme.Colors
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SearchResultCard(value: String, price: Double, image_url: String? = null) {
+fun SearchResultCard(value: String, price: Double, image_url: String? = null, onClick: (() -> Unit)) {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(IntrinsicSize.Max).padding(top = 9.dp), backgroundColor = Colors.LightGrey) {
+        .height(IntrinsicSize.Max).padding(top = 9.dp), backgroundColor = Colors.LightGrey,
+    onClick = onClick) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 
             if (image_url == null) {

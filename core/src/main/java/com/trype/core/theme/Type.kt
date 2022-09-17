@@ -2,6 +2,7 @@ package com.trype.core.theme
 
 import androidx.compose.material.Text
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -48,16 +49,27 @@ val Typography = Typography(
         fontWeight = FontWeight.W900,
         fontSize = 10.sp
     ),
-    /* Other default text styles to override
+//    h5 = TextStyle(
+//        fontFamily = Playfair,
+//        fontWeight = FontWeight(700),
+//        fontSize = 32.sp
+//    )
     button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontFamily = Raleway,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 14.sp,
+        color = Color.White
     ),
+    /* Other default text styles to override
+
     caption = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     )
     */
+)
+
+val TypographyLarge = Typography(
+
 )

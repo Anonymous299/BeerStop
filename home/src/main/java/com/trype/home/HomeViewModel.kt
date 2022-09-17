@@ -1,5 +1,6 @@
 package com.trype.home
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,7 +38,7 @@ class HomeViewModel @Inject constructor(
                 mapIntents(it)
             }.scan(uiState.value, ::reduceUiState)
                 .catch {
-                    //TODO handle this
+                    Log.d("SahilTest", "error: ${it.message}")
                 }
                 .collect {
                     uiState.emit(it)
