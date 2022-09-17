@@ -1,12 +1,12 @@
 package com.trype.home
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trype.core.data.Alcohol
 import com.trype.core.di.MainImmediateScope
 import com.trype.core.extensions.resultOf
+import com.trype.core.navigation.DescriptionNavigation
 import com.trype.core.navigation.NavigationManager
 import com.trype.core.navigation.SearchNavigation
 import com.trype.home.domain.HomeRepository
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
     val navigationManager: NavigationManager,
-    private val savedStateHandle: SavedStateHandle,
+    private val descriptionNavigation: DescriptionNavigation,
     private val searchNavigation: SearchNavigation,
     @MainImmediateScope private val externalMainImmediateScope: CoroutineScope
 ): ViewModel() {
@@ -89,14 +89,16 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun openDescriptionPage(alcohol: Alcohol): Flow<HomeUIState.PartialState> {
-        //TODO implement
+        viewModelScope.launch {
+            eventChannel.send(HomeEvents.OpenMostEfficientDetails(descriptionNavigation.descriptionCommand(alcohol.id)))
+        }
         return emptyFlow()
     }
 
     private fun openCategorySearch(type: String): Flow<HomeUIState.PartialState>{
         viewModelScope.launch {
 
-            eventChannel.send(HomeEvents.OpenCategorySearch(type, searchNavigation.searchCommand(type)))
+            eventChannel.send(HomeEvents.OpenCategorySearch(searchNavigation.searchCommand(type)))
         }
             return emptyFlow()
     }

@@ -22,5 +22,5 @@ interface SearchNavigation{
 }
 
 interface DescriptionNavigation{
-    fun descriptionCommand(alcohol: Alcohol): NavigationCommand
+    fun descriptionCommand(alcoholId: Int): NavigationCommand
 }
