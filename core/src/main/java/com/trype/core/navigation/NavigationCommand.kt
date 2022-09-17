@@ -1,8 +1,9 @@
 package com.trype.core.navigation
 
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavOptions
 
 interface NavigationCommand{
-    val configuration: NavOptions
+    val arguments: List<NamedNavArgument>
     val destination: String
 }

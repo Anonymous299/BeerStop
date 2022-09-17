@@ -1,5 +1,6 @@
 package com.trype.search.navigation
 
+import android.util.Log
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -12,8 +13,8 @@ import javax.inject.Inject
 @HiltComposeNavigationFactory
 class SearchNavigationFactory @Inject constructor(): ComposeNavigationFactory {
     override fun create(builder: NavGraphBuilder, navController: NavHostController) {
-        builder.composable(NavigationDestinations.SearchDestination.route){
-            SearchScreen()
+        builder.composable(NavigationDestinations.SearchDestination.route){ backStackEntry ->
+            SearchScreen(category = backStackEntry.arguments?.get("category") as String?)
         }
     }
 }

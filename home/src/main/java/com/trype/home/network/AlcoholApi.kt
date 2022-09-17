@@ -4,6 +4,6 @@ import com.trype.core.data.Alcohol
 import retrofit2.http.GET
 
 interface AlcoholApi {
-    @GET("/api/alcohol/efficient")
+    @GET("/api/alcohol?numberOfResults=9999999999")
     suspend fun getAlcoholList(): List<Alcohol>
 }
