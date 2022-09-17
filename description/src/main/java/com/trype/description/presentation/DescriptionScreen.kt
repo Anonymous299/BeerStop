@@ -36,6 +36,7 @@ import com.trype.description.DescriptionViewModel
 import com.trype.description.R
 
 //TODO use paged list not here but somewhere
+//TODO clean up and remove hardcoded string values
 @Composable
 fun DescriptionScreen(
     alcoholId: Int,
@@ -49,7 +50,6 @@ fun DescriptionScreen(
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp
     )
-//offset(x = -(170.dp - 0.25*screenWidth))
     uiState.alcohol?.let {
         Column(modifier = Modifier.padding(top = 42.dp)) {
             Image(
