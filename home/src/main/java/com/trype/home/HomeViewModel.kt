@@ -1,6 +1,5 @@
 package com.trype.home
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -38,7 +37,7 @@ class HomeViewModel @Inject constructor(
                 mapIntents(it)
             }.scan(uiState.value, ::reduceUiState)
                 .catch {
-                    Log.d("SahilTest", "error: ${it.message}")
+                    //TODO handle
                 }
                 .collect {
                     uiState.emit(it)
@@ -129,7 +128,8 @@ class HomeViewModel @Inject constructor(
 
     private fun refreshAlcohols(): Flow<HomeUIState.PartialState> = flow {
 
-        resultOf { homeRepository.refreshAlcohols() }
+        resultOf {
+            homeRepository.refreshAlcohols() }
             .onFailure {
                 emit(HomeUIState.PartialState.Error(it))
             }

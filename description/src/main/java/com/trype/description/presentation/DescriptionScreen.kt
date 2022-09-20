@@ -78,7 +78,6 @@ fun DescriptionScreen(
                     } else {
                         -(280.dp - 0.25 * screenWidth)
                     }
-                    Log.d("SahilTest", "offset: $offset")
 
                     AsyncImage(
                         model = it.image_url,

@@ -1,6 +1,5 @@
 package com.trype.home.domain
 
-import android.util.Log
 import com.trype.core.data.Alcohol
 import com.trype.core.database.AlcoholDAO
 import com.trype.home.network.AlcoholApi
