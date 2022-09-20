@@ -32,36 +32,31 @@ import kotlinx.coroutines.flow.Flow
 fun SearchScreen(searchViewModel: SearchViewModel = hiltViewModel(), category: String?) {
     val uiState by searchViewModel.uiState.collectAsStateWithLifecycle()
     HandleEvents(events = searchViewModel.event, navigationManager = searchViewModel.navigationManager)
-    //TODO change logic when more queries are added
-    if (category == null){
-        if(uiState.category.isNotEmpty())
-            searchViewModel.acceptIntent(SearchIntents.SaveCategory(uiState.category))
-    }
-    else {
-        val categorySet = HashSet<String>()
-        categorySet.addAll(uiState.category)
-        categorySet.add(category)
-        searchViewModel.acceptIntent(SearchIntents.SaveCategory(categorySet))
-    }
     val searchResults by searchViewModel.searchResults.collectAsStateWithLifecycle()
     Column(modifier = Modifier.padding(top = 35.5.dp, start = 29.5.dp, end = 22.5.dp)) {
+
         Image(painter = painterResource(id = R.drawable.ic_filter),
             contentDescription = "filter",
         modifier = Modifier
-            .scale(0.6f)
-            .clickable {
-                Log.d("SahilTest", "filter state: ${uiState.filter}")
-                searchViewModel.acceptIntent(SearchIntents.ToggleFilter(!uiState.filter))
-            })
-        if(uiState.filter){
+            .scale(0.6f).clickable {
+                searchViewModel.acceptIntent(SearchIntents.ToggleFilter)
+            }
+            )
+        if(uiState.showFilter){
             OutlinedButton(
-    onClick = { },
-        border = BorderStroke(1.dp, Colors.LightGrey),
+    onClick = {
+              searchViewModel.acceptIntent(SearchIntents.ChangeCategory("Wine"))
+    },
+        border = if(uiState.category.contains("Wine")) {
+            BorderStroke(1.dp, Color.Green)
+        }
+                else{
+            BorderStroke(1.dp, Colors.LightGrey)
+                    },
     shape = RoundedCornerShape(50), // = 50% percent
     // or shape = CircleShape
-    colors = ButtonDefaults.outlinedButtonColors(contentColor = Colors.LightGrey)
 ){
-    Text( text = "Wine" )
+    Text( text = "Wine" , style = MaterialTheme.typography.h3)
 }
         }
         OutlinedTextFieldNoPadding(value = "Spirits",
