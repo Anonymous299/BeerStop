@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
 
     private fun openDescriptionPage(alcohol: Alcohol): Flow<HomeUIState.PartialState> {
         viewModelScope.launch {
-            eventChannel.send(HomeEvents.OpenMostEfficientDetails(descriptionNavigation.descriptionCommand(alcohol.id)))
+            eventChannel.send(HomeEvents.OpenMostEfficientDetails(descriptionNavigation.descriptionCommand(alcohol.rowid)))
         }
         return emptyFlow()
     }

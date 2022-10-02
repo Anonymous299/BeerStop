@@ -11,5 +11,7 @@ class SearchNavigationCommand @Inject constructor() : SearchNavigation {
         override val arguments: List<NamedNavArgument> = emptyList()
 
         override val destination = "${NavigationDestinations.SearchDestination.base_route}/$category"
+
+        override val popBackStack = false
     }
 }

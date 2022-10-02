@@ -6,4 +6,5 @@ import androidx.navigation.NavOptions
 interface NavigationCommand{
     val arguments: List<NamedNavArgument>
     val destination: String
+    val popBackStack: Boolean
 }

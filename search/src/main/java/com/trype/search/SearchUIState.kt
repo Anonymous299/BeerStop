@@ -8,16 +8,20 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SearchUIState(val isLoading: Boolean = false,
                        val category: Set<String> = emptySet(),
+                         val subcategory: Set<String> = emptySet(),
+                         val title: String = "",
                        val isError: Boolean = false,
                         val showFilter: Boolean = false): Parcelable {
 
 
     sealed interface PartialState {
         object Loading : PartialState
-        data class Fetched(val searchResults: List<Alcohol>) : PartialState
+        object Fetched : PartialState
         data class Error(val throwable: Throwable) : PartialState
         object FilterToggled: PartialState
         data class CategoryChanged(val categorySet: Set<String>): PartialState
+        data class SubcategoryChanged(val subcategorySet: Set<String>): PartialState
+        data class TitleChanged(val title: String): PartialState
     }
 
 //    companion object CREATOR : Parcelable.Creator<SearchUIState> {

@@ -12,5 +12,7 @@ class DescriptionNavigationCommand @Inject constructor() : DescriptionNavigation
         override val arguments: List<NamedNavArgument> = emptyList()
 
         override val destination = "${NavigationDestinations.DescriptionDestination.base_route}/$alcoholId"
+
+        override val popBackStack = false
     }
 }

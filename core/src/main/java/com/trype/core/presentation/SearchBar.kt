@@ -15,6 +15,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextStyle
@@ -51,11 +52,16 @@ fun OutlinedTextFieldNoPadding(value: String,
         value = value,
         modifier = modifier
             .background(colors.backgroundColor(enabled).value, shape)
-            .padding(paddingValues),
-        onValueChange = {},
-        enabled = false,
-        readOnly = true,
-        singleLine = true,
+            .padding(paddingValues).onFocusChanged {
+
+            },
+        readOnly = readOnly,
+        onValueChange = onValueChange,
+        enabled = enabled,
+        singleLine = singleLine,
+        maxLines = maxLines,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         decorationBox = @Composable { innerTextField ->
             TextFieldDefaults.OutlinedTextFieldDecorationBox(
                 value = value,

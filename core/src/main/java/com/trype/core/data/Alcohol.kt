@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 @Entity
 @JsonClass(generateAdapter = true)
 data class Alcohol(
-    @PrimaryKey @Json(name = "permanent_id") val id: Int,
+    @PrimaryKey @Json(name = "permanent_id") val rowid: Int,
     val title: String,
     val brand: String?,
     val category: String,

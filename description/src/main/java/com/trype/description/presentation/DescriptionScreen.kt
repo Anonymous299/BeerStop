@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
@@ -50,13 +48,18 @@ fun DescriptionScreen(
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp
     )
+    val navController = rememberNavController()
     uiState.alcohol?.let {
         Column(modifier = Modifier.padding(top = 42.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24),
-                contentDescription = "menu", modifier = Modifier.padding(start = 29.5.dp)
-            )
-            Row(modifier = Modifier.padding(start = screenWidth * 0.3f, end = 15.dp, top = 15.dp).fillMaxWidth(),
+            IconButton(onClick = { navController.popBackStack() }) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24),
+                    contentDescription = "menu", modifier = Modifier.padding(start = 29.5.dp)
+                )
+            }
+            Row(modifier = Modifier
+                .padding(start = screenWidth * 0.3f, end = 15.dp, top = 15.dp)
+                .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center) {
                 Text(
                     text = it.title, style = TextStyle(
